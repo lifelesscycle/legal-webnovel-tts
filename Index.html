@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Webnovel TTS</title>
+
+    <meta
+        name="description"
+        content="Webnovel TTS is a private, self-deployed text-to-speech application for reading and converting web novel content."
+    >
+
+    <style>
+        :root {
+            --background: #0b0d12;
+            --surface: #131720;
+            --surface-hover: #1a1f2b;
+            --text: #f4f6f8;
+            --muted: #a7afbd;
+            --border: #293140;
+            --accent: #8b7cff;
+            --accent-hover: #a196ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--background);
+            color: var(--text);
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: min(900px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 0;
+        }
+
+        .logo {
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .hero {
+            padding: 110px 0 100px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-bottom: 22px;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        h1 {
+            max-width: 750px;
+            margin: 0 auto 22px;
+            font-size: clamp(2.8rem, 8vw, 5rem);
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 1.15rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 34px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 11px 18px;
+            border-radius: 9px;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: var(--surface);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .button:hover {
+            background: var(--surface-hover);
+            border-color: #3b4557;
+        }
+
+        .button.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .button.primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .section {
+            padding: 0 0 80px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .card {
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--surface);
+        }
+
+        .card-icon {
+            margin-bottom: 14px;
+            color: var(--accent);
+            font-size: 1.4rem;
+        }
+
+        .card h2 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .about {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 50px 0 90px;
+            border-top: 1px solid var(--border);
+        }
+
+        .about h2 {
+            margin: 0 0 14px;
+            font-size: 1.5rem;
+        }
+
+        .about p {
+            color: var(--muted);
+        }
+
+        .notice {
+            margin-top: 26px;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 26px 0 34px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        footer .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--text);
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                width: min(100% - 28px, 900px);
+            }
+
+            nav {
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .hero {
+                padding: 80px 0 75px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            footer .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">Webnovel TTS</a>
+
+            <div class="nav-links">
+                <a href="/privacy-policy.html">Privacy</a>
+                <a href="/terms-and-conditions.html">Terms</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="container">
+
+            <div class="badge">Private · Self-Hosted · Non-Commercial</div>
+
+            <h1>Webnovel TTS</h1>
+
+            <p>
+                A personal text-to-speech application designed to make
+                reading web novels more convenient by converting text
+                into spoken audio.
+            </p>
+
+            <div class="buttons">
+                <a href="/privacy-policy.html" class="button primary">
+                    Privacy Policy
+                </a>
+
+                <a href="/terms-and-conditions.html" class="button">
+                    Terms &amp; Conditions
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="card-icon">🔊</div>
+
+                    <h2>Text to Speech</h2>
+
+                    <p>
+                        Converts text into spoken audio, making long-form
+                        reading more convenient.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">☁</div>
+
+                    <h2>Google Drive Storage</h2>
+
+                    <p>
+                        Uses Google Drive to store and retrieve files
+                        associated with the application.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🔒</div>
+
+                    <h2>Private by Design</h2>
+
+                    <p>
+                        A self-deployed personal project with no
+                        commercial service or public user platform.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+
+            <h2>About the Project</h2>
+
+            <p>
+                Webnovel TTS is a personal, self-deployed project created
+                for private use. Its purpose is to provide a convenient
+                way to process web novel text and generate text-to-speech
+                audio.
+            </p>
+
+            <p>
+                The application can use Google Drive for storing and
+                retrieving files. Google authentication is handled through
+                Google's OAuth system, using the
+                <code>drive.file</code> permission required by the
+                application.
+            </p>
+
+            <div class="notice">
+                Webnovel TTS is completely free and is not operated as a
+                commercial service, business, or organization.
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container footer-inner">
+
+        <div>
+            &copy; 2026 Webnovel TTS
+        </div>
+
+        <div>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            &nbsp;&middot;&nbsp;
+            <a href="/terms-and-conditions.html">
+                Terms &amp; Conditions
+            </a>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>
